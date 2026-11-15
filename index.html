@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M&amp;M Τεχνικά Έργα | Αναπλάσεις &amp; Δημόσια Έργα</title>
+  <meta name="description" content="M&M Τεχνικά Έργα — Κατασκευαστική εταιρεία δημοσίων έργων. Αναπλάσεις πεζοδρομίων, πλατειών, παραλιακών μετώπων και οδοποιία με ακρίβεια και συνέπεια." />
+  <meta name="theme-color" content="#0b0b0c" />
+
+  <!-- Open Graph (πώς φαίνεται όταν μοιράζεται το link) -->
+  <meta property="og:title" content="M&M Τεχνικά Έργα" />
+  <meta property="og:description" content="Αναπλάσεις & Δημόσια Έργα με ακρίβεια χιλιοστού." />
+  <meta property="og:image" content="assets/images/promenade-seaside.jpg" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml" />
+
+  <!-- Γραμματοσειρές με υποστήριξη ελληνικών -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@200;300;400;500;600;700;800&family=Noto+Serif+Display:ital,wght@1,300;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ====== PRELOADER ====== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__mark">M<span>&amp;</span>M</div>
+    <div class="preloader__bar"><span id="preloaderBar"></span></div>
+    <div class="preloader__pct" id="preloaderPct">000</div>
+  </div>
+
+  <!-- ====== CUSTOM CURSOR ====== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- ====== SCROLL PROGRESS ====== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ====== HEADER ====== -->
+  <header class="header" id="header">
+    <a href="#top" class="brand" aria-label="Αρχική">
+      <!-- 👉 Όταν έχεις το λογότυπο: βάλε το αρχείο στο assets/logo/ και άλλαξε αυτό σε <img src="assets/logo/logo.svg" alt="M&M"> -->
+      <span class="brand__mark">M<em>&amp;</em>M</span>
+      <span class="brand__text">ΤΕΧΝΙΚΑ ΕΡΓΑ</span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#about" data-magnetic>Η Εταιρεία</a>
+      <a href="#services" data-magnetic>Υπηρεσίες</a>
+      <a href="#projects" data-magnetic>Έργα</a>
+      <a href="#process" data-magnetic>Μέθοδος</a>
+      <a href="#fleet" data-magnetic>Εξοπλισμός</a>
+      <a href="#contact" class="nav__cta" data-magnetic>Επικοινωνία</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Μενού"><span></span><span></span></button>
+  </header>
+
+  <main id="top">
+
+    <!-- ====== HERO ====== -->
+    <section class="hero">
+      <canvas id="blueprint" class="hero__canvas"></canvas>
+      <div class="hero__media">
+        <img src="assets/images/promenade-seaside.jpg" alt="Ανάπλαση παραλιακού μετώπου με ποδηλατόδρομο" />
+        <div class="hero__media-tag">
+          <span class="dot"></span> ΑΝΑΠΛΑΣΗ ΠΑΡΑΛΙΑΚΟΥ ΜΕΤΩΠΟΥ
+        </div>
+      </div>
+      <div class="hero__content">
+        <p class="eyebrow reveal">Δημόσια Έργα · Αναπλάσεις · Οδοποιία</p>
+        <h1 class="hero__title">
+          <span class="line"><span>Χτίζουμε</span></span>
+          <span class="line"><span>τον δημόσιο</span></span>
+          <span class="line"><span><i>χώρο</i> με</span></span>
+          <span class="line"><span class="gold">ακρίβεια.</span></span>
+        </h1>
+        <p class="hero__lead reveal">Πεζοδρόμια, πλατείες, πάρκα και παραλιακά μέτωπα που αντέχουν στον χρόνο — σχεδιασμένα και εκτελεσμένα με τεχνική αρτιότητα και απόλυτη συνέπεια στα χρονοδιαγράμματα.</p>
+        <div class="hero__actions reveal">
+          <a href="#projects" class="btn btn--gold" data-magnetic><span>Δείτε τα έργα μας</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#contact" class="btn btn--ghost" data-magnetic><span>Ζητήστε προσφορά</span></a>
+        </div>
+      </div>
+      <div class="hero__coords" id="coords">40.6401° N · 22.9444° E</div>
+      <a href="#about" class="hero__scroll"><span>SCROLL</span><i></i></a>
+    </section>
+
+    <!-- ====== MARQUEE ====== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>ΑΝΑΠΛΑΣΕΙΣ</span><b>◆</b><span>ΠΕΖΟΔΡΟΜΙΑ</span><b>◆</b><span>ΠΛΑΤΕΙΕΣ</span><b>◆</b><span>ΠΑΡΚΑ</span><b>◆</b><span>ΠΑΡΑΛΙΑΚΑ ΜΕΤΩΠΑ</span><b>◆</b><span>ΟΔΟΠΟΙΙΑ</span><b>◆</b><span>ΠΡΟΣΒΑΣΙΜΟΤΗΤΑ ΑμεΑ</span><b>◆</b>
+        <span>ΑΝΑΠΛΑΣΕΙΣ</span><b>◆</b><span>ΠΕΖΟΔΡΟΜΙΑ</span><b>◆</b><span>ΠΛΑΤΕΙΕΣ</span><b>◆</b><span>ΠΑΡΚΑ</span><b>◆</b><span>ΠΑΡΑΛΙΑΚΑ ΜΕΤΩΠΑ</span><b>◆</b><span>ΟΔΟΠΟΙΙΑ</span><b>◆</b><span>ΠΡΟΣΒΑΣΙΜΟΤΗΤΑ ΑμεΑ</span><b>◆</b>
+      </div>
+    </div>
+
+    <!-- ====== ABOUT + STATS ====== -->
+    <section class="section about" id="about">
+      <div class="container about__grid">
+        <div class="about__text">
+          <p class="eyebrow reveal">01 — Η Εταιρεία</p>
+          <h2 class="h2 reveal">Η πόλη είναι το <i>εργοτάξιό</i> μας.<br/>Η ποιότητα, η υπογραφή μας.</h2>
+          <p class="reveal">Η M&amp;M Τεχνικά Έργα εξειδικεύεται στην εκτέλεση δημοσίων έργων ανάπλασης. Συνεργαζόμαστε με Δήμους και φορείς για να μεταμορφώνουμε δρόμους, πεζοδρόμια και δημόσιους χώρους σε ασφαλή, λειτουργικά και προσβάσιμα περιβάλλοντα.</p>
+          <p class="reveal">Με ιδιόκτητο μηχανολογικό εξοπλισμό, έμπειρα συνεργεία και αυστηρό ποιοτικό έλεγχο σε κάθε φάση, παραδίδουμε έργα που κάνουν τη διαφορά στην καθημερινότητα των πολιτών.</p>
+          <!-- 👉 Άλλαξε τα κείμενα με τα πραγματικά στοιχεία της εταιρείας -->
+        </div>
+        <div class="stats">
+          <div class="stat reveal" data-tilt>
+            <div class="stat__num"><span data-count="15">0</span>+</div>
+            <div class="stat__label">Χρόνια εμπειρίας</div>
+          </div>
+          <div class="stat reveal" data-tilt>
+            <div class="stat__num"><span data-count="120">0</span>+</div>
+            <div class="stat__label">Ολοκληρωμένα έργα</div>
+          </div>
+          <div class="stat reveal" data-tilt>
+            <div class="stat__num"><span data-count="85">0</span>k</div>
+            <div class="stat__label">m² πλακοστρώσεων</div>
+          </div>
+          <div class="stat reveal" data-tilt>
+            <div class="stat__num"><span data-count="100">0</span>%</div>
+            <div class="stat__label">Εμπρόθεσμες παραδόσεις</div>
+          </div>
+          <!-- 👉 Οι αριθμοί είναι ενδεικτικοί — βάλε τους πραγματικούς -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== SERVICES ====== -->
+    <section class="section services" id="services">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow reveal">02 — Υπηρεσίες</p>
+          <h2 class="h2 reveal">Από το πρώτο χάραγμα<br/>ως την <i>τελευταία</i> πλάκα.</h2>
+        </div>
+        <div class="services__grid">
+          <article class="service reveal" data-tilt>
+            <div class="service__icon"><svg viewBox="0 0 48 48"><rect x="6" y="6" width="16" height="16"/><rect x="26" y="6" width="16" height="16"/><rect x="6" y="26" width="16" height="16"/><rect x="26" y="26" width="16" height="16"/></svg></div>
+            <span class="service__no">01</span>
+            <h3>Αναπλάσεις Πεζοδρομίων</h3>
+            <p>Καθαιρέσεις, υπόβαση, κρασπεδόρειθρα και πλακοστρώσεις με κυβόλιθους και τσιμεντόπλακες υψηλής αντοχής.</p>
+          </article>
+          <article class="service reveal" data-tilt>
+            <div class="service__icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="6"/><path d="M24 2v8M24 38v8M2 24h8M38 24h8"/></svg></div>
+            <span class="service__no">02</span>
+            <h3>Πλατείες &amp; Πάρκα</h3>
+            <p>Ολοκληρωμένη διαμόρφωση κοινόχρηστων χώρων: δαπεδοστρώσεις, φυτεύσεις, φωτισμός, αστικός εξοπλισμός.</p>
+          </article>
+          <article class="service reveal" data-tilt>
+            <div class="service__icon"><svg viewBox="0 0 48 48"><path d="M2 34c6-4 10-4 16 0s10 4 16 0 10-4 12-2"/><path d="M2 42c6-4 10-4 16 0s10 4 16 0 10-4 12-2"/><path d="M10 24l14-16 14 16"/></svg></div>
+            <span class="service__no">03</span>
+            <h3>Παραλιακά Μέτωπα</h3>
+            <p>Πεζόδρομοι και ποδηλατόδρομοι κατά μήκος της ακτής, σχεδιασμένοι να αντέχουν αλμύρα και έντονη χρήση.</p>
+          </article>
+          <article class="service reveal" data-tilt>
+            <div class="service__icon"><svg viewBox="0 0 48 48"><path d="M16 4L8 44M32 4l8 40"/><path d="M24 8v6M24 20v6M24 32v6"/></svg></div>
+            <span class="service__no">04</span>
+            <h3>Οδοποιία &amp; Ασφαλτικά</h3>
+            <p>Φρεζαρίσματα, ασφαλτοστρώσεις, διαγραμμίσεις και αποκαταστάσεις οδοστρωμάτων σε αστικό ιστό.</p>
+          </article>
+          <article class="service reveal" data-tilt>
+            <div class="service__icon"><svg viewBox="0 0 48 48"><rect x="18" y="4" width="12" height="40"/><path d="M21 10h6M21 16h6M21 22h6M21 28h6M21 34h6M21 40h6"/></svg></div>
+            <span class="service__no">05</span>
+            <h3>Προσβασιμότητα ΑμεΑ</h3>
+            <p>Οδηγοί τυφλών, ράμπες και διαβάσεις σύμφωνα με τις ισχύουσες προδιαγραφές προσβασιμότητας.</p>
+          </article>
+          <article class="service reveal" data-tilt>
+            <div class="service__icon"><svg viewBox="0 0 48 48"><path d="M4 40h40"/><path d="M8 40V20l10-8 10 8v20"/><path d="M28 40V12l12-6v34"/></svg></div>
+            <span class="service__no">06</span>
+            <h3>Τεχνικά Έργα Υποδομής</h3>
+            <p>Δίκτυα ομβρίων, σωληνώσεις Η/Μ, φρεάτια και κάθε υποστηρικτική υποδομή του αστικού χώρου.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== PROJECTS ====== -->
+    <section class="section projects" id="projects">
+      <div class="container">
+        <div class="section__head section__head--row">
+          <div>
+            <p class="eyebrow reveal">03 — Έργα</p>
+            <h2 class="h2 reveal">Έργα που <i>μιλούν</i><br/>από μόνα τους.</h2>
+          </div>
+          <div class="filters reveal" id="filters">
+            <button class="active" data-filter="all">Όλα</button>
+            <button data-filter="coastal">Παραλιακά</button>
+            <button data-filter="urban">Αστικά</button>
+            <button data-filter="road">Οδοποιία</button>
+          </div>
+        </div>
+
+        <!-- 👉 Για να προσθέσεις έργο: αντέγραψε ένα <figure class="project"> και άλλαξε εικόνα/τίτλο/κατηγορία -->
+        <div class="projects__grid" id="projectsGrid">
+          <figure class="project project--tall reveal" data-cat="coastal">
+            <img src="assets/images/promenade-seaside.jpg" alt="Παραλιακός πεζόδρομος και ποδηλατόδρομος" loading="lazy" />
+            <figcaption><span>Παραλιακό Μέτωπο</span><h3>Πεζόδρομος &amp; Ποδηλατόδρομος</h3></figcaption>
+          </figure>
+          <figure class="project reveal" data-cat="urban">
+            <img src="assets/images/sidewalk-tactile-paving.jpg" alt="Ανακατασκευή πεζοδρομίου με οδηγό τυφλών" loading="lazy" />
+            <figcaption><span>Αστική Ανάπλαση</span><h3>Πεζοδρόμιο με Οδηγό Τυφλών</h3></figcaption>
+          </figure>
+          <figure class="project reveal" data-cat="coastal">
+            <img src="assets/images/coastal-walkway.jpg" alt="Πλακόστρωση παραλιακού πεζόδρομου" loading="lazy" />
+            <figcaption><span>Παραλιακό Μέτωπο</span><h3>Πλακόστρωση Παραλιακού Πεζόδρομου</h3></figcaption>
+          </figure>
+          <figure class="project project--tall reveal" data-cat="urban">
+            <img src="assets/images/urban-paving-cat262b.jpg" alt="Ανάπλαση οδού στο κέντρο της πόλης" loading="lazy" />
+            <figcaption><span>Αστική Ανάπλαση</span><h3>Ανάπλαση Κεντρικής Οδού</h3></figcaption>
+          </figure>
+          <figure class="project reveal" data-cat="road">
+            <img src="assets/images/road-milling.jpg" alt="Φρεζάρισμα και ασφαλτόστρωση" loading="lazy" />
+            <figcaption><span>Οδοποιία</span><h3>Φρεζάρισμα &amp; Ασφαλτόστρωση</h3></figcaption>
+          </figure>
+          <figure class="project project--wide reveal" data-cat="road">
+            <img src="assets/images/finished-street-fleet.jpg" alt="Ολοκληρωμένη ανάπλαση δρόμου" loading="lazy" />
+            <figcaption><span>Οδοποιία</span><h3>Νέο Οδόστρωμα &amp; Κράσπεδα</h3></figcaption>
+          </figure>
+          <figure class="project reveal" data-cat="coastal">
+            <img src="assets/images/beach-gehl-loader.jpg" alt="Χωματουργικές εργασίες σε ακτή" loading="lazy" />
+            <figcaption><span>Παραλιακό Μέτωπο</span><h3>Διαμόρφωση Ακτής</h3></figcaption>
+          </figure>
+          <figure class="project project--wide reveal" data-cat="urban">
+            <img src="assets/images/site-equipment-gehl.jpg" alt="Εργοτάξιο ανάπλασης σε αστική περιοχή" loading="lazy" />
+            <figcaption><span>Αστική Ανάπλαση</span><h3>Ανάπλαση Γειτονιάς</h3></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== BEFORE / AFTER ====== -->
+    <section class="section compare">
+      <div class="container compare__grid">
+        <div>
+          <p class="eyebrow reveal">Πριν · Μετά</p>
+          <h2 class="h2 reveal">Σύρετε για να δείτε<br/>τη <i>μεταμόρφωση</i>.</h2>
+          <p class="reveal">Από το εργοτάξιο στον ολοκληρωμένο δημόσιο χώρο. Κάθε έργο περνά από αυστηρό έλεγχο σε κάθε στάδιο.</p>
+          <!-- 👉 Ιδανικά βάλε 2 φωτογραφίες από το ΙΔΙΟ σημείο (πριν/μετά) -->
+        </div>
+        <div class="ba reveal" id="ba">
+          <img src="assets/images/promenade-seaside.jpg" alt="Μετά" class="ba__after" />
+          <div class="ba__before" id="baBefore"><img src="assets/images/coastal-walkway.jpg" alt="Κατά την κατασκευή" /></div>
+          <div class="ba__handle" id="baHandle"><span>⟷</span></div>
+          <span class="ba__label ba__label--l">ΚΑΤΑΣΚΕΥΗ</span>
+          <span class="ba__label ba__label--r">ΠΑΡΑΔΟΣΗ</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== PROCESS ====== -->
+    <section class="section process" id="process">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow reveal">04 — Μέθοδος</p>
+          <h2 class="h2 reveal">Μια διαδικασία<br/><i>χωρίς εκπλήξεις</i>.</h2>
+        </div>
+        <div class="timeline" id="timeline">
+          <div class="timeline__line"><span id="timelineFill"></span></div>
+          <div class="step reveal"><b>01</b><h3>Μελέτη &amp; Προγραμματισμός</h3><p>Αποτύπωση, ανάλυση μελέτης, χρονοδιάγραμμα και σχέδιο ασφάλειας εργοταξίου.</p></div>
+          <div class="step reveal"><b>02</b><h3>Οργάνωση Εργοταξίου</h3><p>Σήμανση, περίφραξη και ασφαλής διαχείριση κυκλοφορίας πεζών και οχημάτων.</p></div>
+          <div class="step reveal"><b>03</b><h3>Κατασκευή</h3><p>Εκτέλεση με ιδιόκτητο εξοπλισμό και έμπειρα συνεργεία, με ποιοτικό έλεγχο σε κάθε στάδιο.</p></div>
+          <div class="step reveal"><b>04</b><h3>Παράδοση</h3><p>Τελικός έλεγχος, καθαρισμός και έγκαιρη παράδοση ενός άρτιου έργου στον φορέα.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== FLEET ====== -->
+    <section class="section fleet" id="fleet">
+      <div class="container fleet__grid">
+        <div class="fleet__media reveal" data-parallax>
+          <img src="assets/images/fleet-trucks.jpg" alt="Στόλος οχημάτων M&M" loading="lazy" />
+        </div>
+        <div class="fleet__text">
+          <p class="eyebrow reveal">05 — Εξοπλισμός</p>
+          <h2 class="h2 reveal">Ιδιόκτητος στόλος.<br/><i>Πλήρης</i> αυτονομία.</h2>
+          <p class="reveal">Διαθέτουμε σύγχρονο μηχανολογικό εξοπλισμό που μας επιτρέπει να κινούμαστε γρήγορα και να ελέγχουμε κάθε φάση του έργου.</p>
+          <ul class="fleet__list">
+            <li class="reveal"><span>Φορτωτές Skid Steer</span><em>GEHL · CAT 262B</em></li>
+            <li class="reveal"><span>Εκσκαφείς</span><em>Mini excavators</em></li>
+            <li class="reveal"><span>Φορτηγά &amp; Ανατρεπόμενα</span><em>Ford · Fiat</em></li>
+            <li class="reveal"><span>Παρελκόμενα</span><em>Αναμικτήρες, κόφτες, κουβάδες</em></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== CTA / CONTACT ====== -->
+    <section class="section contact" id="contact">
+      <div class="container contact__grid">
+        <div>
+          <p class="eyebrow reveal">06 — Επικοινωνία</p>
+          <h2 class="h2 h2--xl reveal">Ας χτίσουμε<br/>κάτι <i class="gold">μόνιμο</i>.</h2>
+          <div class="contact__info">
+            <!-- 👉 Βάλε τα πραγματικά στοιχεία -->
+            <a href="tel:+302310000000" class="reveal" data-magnetic><small>Τηλέφωνο</small>+30 231 000 0000</a>
+            <a href="mailto:info@mminfrastructure.gr" class="reveal" data-magnetic><small>Email</small>info@mminfrastructure.gr</a>
+            <div class="reveal"><small>Έδρα</small>Θεσσαλονίκη, Ελλάδα</div>
+          </div>
+        </div>
+        <!-- 👉 Η φόρμα στέλνει email μέσω Formspree (δωρεάν) — δες README βήμα 9 -->
+        <form class="form reveal" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="field"><input type="text" name="name" id="f-name" required placeholder=" " /><label for="f-name">Ονοματεπώνυμο / Φορέας</label></div>
+          <div class="field"><input type="email" name="email" id="f-email" required placeholder=" " /><label for="f-email">Email</label></div>
+          <div class="field"><input type="tel" name="phone" id="f-phone" placeholder=" " /><label for="f-phone">Τηλέφωνο</label></div>
+          <div class="field"><textarea name="message" id="f-msg" rows="4" required placeholder=" "></textarea><label for="f-msg">Περιγραφή έργου</label></div>
+          <button type="submit" class="btn btn--gold btn--full" data-magnetic><span>Αποστολή μηνύματος</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="form__status" id="formStatus"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="brand__mark">M<em>&amp;</em>M</span>
+      <p>© <span id="year"></span> M&amp;M Τεχνικά Έργα. Με επιφύλαξη παντός δικαιώματος.</p>
+      <a href="#top" class="footer__top" data-magnetic>↑ Αρχή</a>
+    </div>
+  </footer>
+
+  <!-- ====== LIGHTBOX ====== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="lbClose" aria-label="Κλείσιμο">✕</button>
+    <button class="lightbox__nav lightbox__prev" id="lbPrev" aria-label="Προηγούμενη">‹</button>
+    <img id="lbImg" alt="" />
+    <button class="lightbox__nav lightbox__next" id="lbNext" aria-label="Επόμενη">›</button>
+    <p class="lightbox__cap" id="lbCap"></p>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

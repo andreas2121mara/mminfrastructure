@@ -1,0 +1,5 @@
+{
+  "folders": [{ "path": "." }],
+  "settings": { "files.encoding": "utf8" },
+  "extensions": { "recommendations": ["ritwickdey.LiveServer", "esbenp.prettier-vscode"] }
+}
