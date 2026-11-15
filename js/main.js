@@ -202,6 +202,7 @@
     resize(); addEventListener("resize", resize);
     cv.parentElement.addEventListener("mousemove", (e) => { const r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
     cv.parentElement.addEventListener("mouseleave", () => (mouse.x = mouse.y = -999));
+    const GOLD = getComputedStyle(document.documentElement).getPropertyValue("--gold-rgb").trim() || "200,179,120";
     let t = 0;
     (function draw() {
       t += 0.006;
@@ -219,12 +220,12 @@
         const wave = (Math.sin(p.x * 0.01 + p.y * 0.008 + t * 3) + 1) / 2;
         const a = 0.06 + wave * 0.08 + near * 0.8;
         const s = 1 + near * 2.5;
-        ctx.fillStyle = near > 0.05 ? `rgba(201,164,92,${a})` : `rgba(255,255,255,${a * 0.6})`;
+        ctx.fillStyle = near > 0.05 ? `rgba(${GOLD},${a})` : `rgba(255,255,255,${a * 0.6})`;
         ctx.fillRect(p.x - s / 2, p.y - s / 2, s, s);
       }
       // σταυρόνημα «χωροβάτη» στο ποντίκι
       if (mouse.x > 0) {
-        ctx.strokeStyle = "rgba(201,164,92,0.25)";
+        ctx.strokeStyle = `rgba(${GOLD},0.25)`;
         ctx.beginPath(); ctx.moveTo(mouse.x, 0); ctx.lineTo(mouse.x, h); ctx.moveTo(0, mouse.y); ctx.lineTo(w, mouse.y); ctx.stroke();
       }
       requestAnimationFrame(draw);

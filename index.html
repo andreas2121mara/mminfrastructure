@@ -13,7 +13,9 @@
   <meta property="og:image" content="assets/images/promenade-seaside.jpg" />
   <meta property="og:type" content="website" />
 
+  <link rel="icon" href="assets/logo/favicon.png" type="image/png" sizes="64x64" />
   <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png" />
 
   <!-- Γραμματοσειρές με υποστήριξη ελληνικών -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,7 +28,7 @@
 
   <!-- ====== PRELOADER ====== -->
   <div class="preloader" id="preloader">
-    <div class="preloader__mark">M<span>&amp;</span>M</div>
+    <img class="preloader__logo" src="assets/logo/logo.svg" alt="M&amp;M Τεχνικά Έργα" width="472" height="512" />
     <div class="preloader__bar"><span id="preloaderBar"></span></div>
     <div class="preloader__pct" id="preloaderPct">000</div>
   </div>
@@ -40,9 +42,9 @@
 
   <!-- ====== HEADER ====== -->
   <header class="header" id="header">
-    <a href="#top" class="brand" aria-label="Αρχική">
-      <!-- 👉 Όταν έχεις το λογότυπο: βάλε το αρχείο στο assets/logo/ και άλλαξε αυτό σε <img src="assets/logo/logo.svg" alt="M&M"> -->
-      <span class="brand__mark">M<em>&amp;</em>M</span>
+    <a href="#top" class="brand" aria-label="M&amp;M Τεχνικά Έργα — Αρχική">
+      <img class="brand__emblem" src="assets/logo/logo-mark.svg" alt="" width="314" height="318" />
+      <img class="brand__word" src="assets/logo/logo-wordmark.svg" alt="M&amp;M" width="472" height="152" />
       <span class="brand__text">ΤΕΧΝΙΚΑ ΕΡΓΑ</span>
     </a>
     <nav class="nav" id="nav">
@@ -311,7 +313,10 @@
   <!-- ====== FOOTER ====== -->
   <footer class="footer">
     <div class="container footer__inner">
-      <span class="brand__mark">M<em>&amp;</em>M</span>
+      <div class="brand brand--footer">
+        <img class="brand__emblem" src="assets/logo/logo-mark.svg" alt="" width="314" height="318" />
+        <img class="brand__word" src="assets/logo/logo-wordmark.svg" alt="M&amp;M" width="472" height="152" />
+      </div>
       <p>© <span id="year"></span> M&amp;M Τεχνικά Έργα. Με επιφύλαξη παντός δικαιώματος.</p>
       <a href="#top" class="footer__top" data-magnetic>↑ Αρχή</a>
     </div>

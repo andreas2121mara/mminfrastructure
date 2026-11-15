@@ -1,7 +1,8 @@
 /* =========================================================
    M&M ΤΕΧΝΙΚΑ ΕΡΓΑ — Κεντρικό stylesheet
    👉 Τα χρώματα του brand είναι στις μεταβλητές παρακάτω.
-      Όταν έρθει το λογότυπο, αλλάζουμε μόνο αυτές.
+      Το χρυσό πάρθηκε από το λογότυπο: μπρονζέ στις άκρες,
+      ανοιχτό «σαμπανί» στο κέντρο.
    ========================================================= */
 :root {
   --bg: #0b0b0c;
@@ -10,9 +11,10 @@
   --line: rgba(255, 255, 255, 0.09);
   --text: #f2efe8;
   --muted: #9a968d;
-  --gold: #c9a45c;
-  --gold-2: #e6c98a;
-  --gold-grad: linear-gradient(120deg, #a8823a 0%, #e6c98a 45%, #c9a45c 60%, #8f6d2c 100%);
+  --gold: #c8b378;
+  --gold-rgb: 200, 179, 120; /* το ίδιο με το --gold, για διάφανες αποχρώσεις: rgba(var(--gold-rgb), .5) */
+  --gold-2: #efe7a3;
+  --gold-grad: linear-gradient(120deg, #8a6a3f 0%, #b59e68 22%, #efe8a4 48%, #d6ca8c 60%, #a88e5a 82%, #8a683a 100%);
   --font: "Commissioner", system-ui, sans-serif;
   --serif: "Noto Serif Display", Georgia, serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -61,17 +63,17 @@ body::after {
   clip-path: inset(0 0 0 0);
 }
 .preloader.done { clip-path: inset(0 0 100% 0); }
-.preloader__mark { font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; letter-spacing: -.04em; }
-.preloader__mark span { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--gold); }
+.preloader__logo { width: clamp(140px, 26vw, 210px); height: auto; animation: logoIn 1.2s var(--ease) both; }
+@keyframes logoIn { from { opacity: 0; transform: translateY(12px) scale(.96); } to { opacity: 1; transform: none; } }
 .preloader__bar { width: 220px; height: 1px; background: var(--line); overflow: hidden; }
 .preloader__bar span { display: block; height: 100%; width: 0; background: var(--gold-grad); transition: width .2s linear; }
 .preloader__pct { font-size: .75rem; letter-spacing: .3em; color: var(--muted); font-variant-numeric: tabular-nums; }
 
 /* ---------- Cursor ---------- */
 .cursor, .cursor-dot { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; border-radius: 50%; transform: translate(-50%, -50%); }
-.cursor { width: 38px; height: 38px; border: 1px solid rgba(201, 164, 92, .6); transition: width .35s var(--ease), height .35s var(--ease), background .35s; }
+.cursor { width: 38px; height: 38px; border: 1px solid rgba(var(--gold-rgb), .6); transition: width .35s var(--ease), height .35s var(--ease), background .35s; }
 .cursor-dot { width: 5px; height: 5px; background: var(--gold); }
-.cursor.hover { width: 72px; height: 72px; background: rgba(201, 164, 92, .1); }
+.cursor.hover { width: 72px; height: 72px; background: rgba(var(--gold-rgb), .1); }
 .cursor.view::after { content: "VIEW"; position: absolute; inset: 0; display: grid; place-items: center; font-size: .6rem; letter-spacing: .2em; color: var(--gold); }
 @media (hover: none) { .cursor, .cursor-dot { display: none; } }
 
@@ -86,10 +88,14 @@ body::after {
 }
 .header.scrolled { padding: .9rem var(--pad); background: rgba(11, 11, 12, .72); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
 .header.hide { transform: translateY(-100%); }
-.brand { display: flex; align-items: center; gap: .9rem; }
-.brand img { height: 44px; width: auto; }
-.brand__mark { font-weight: 800; font-size: 1.6rem; letter-spacing: -.04em; }
-.brand__mark em { font-family: var(--serif); font-weight: 300; color: var(--gold); }
+.brand { display: flex; align-items: center; gap: .75rem; }
+.brand img { width: auto; transition: height .5s var(--ease); }
+.brand__emblem { height: 48px; }
+.brand__word { height: 20px; }
+.header.scrolled .brand__emblem { height: 40px; }
+.header.scrolled .brand__word { height: 17px; }
+.brand--footer .brand__emblem { height: 40px; }
+.brand--footer .brand__word { height: 17px; }
 .brand__text { font-size: .62rem; letter-spacing: .35em; color: var(--muted); border-left: 1px solid var(--line); padding-left: .9rem; }
 .nav { display: flex; gap: 2.2rem; align-items: center; font-size: .85rem; }
 .nav a { position: relative; display: inline-block; }
@@ -149,7 +155,7 @@ body::after {
 .hero__media::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, var(--bg) 0%, transparent 35%), linear-gradient(0deg, rgba(11,11,12,.6), transparent 40%); }
 .hero__media-tag { position: absolute; z-index: 2; bottom: 2rem; right: 2rem; font-size: .68rem; letter-spacing: .25em; display: flex; align-items: center; gap: .6rem; background: rgba(0,0,0,.45); backdrop-filter: blur(10px); padding: .6rem 1rem; border: 1px solid var(--line); }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 0 var(--gold); animation: pulse 2s infinite; }
-@keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(201,164,92,0); } 100% { box-shadow: 0 0 0 0 rgba(201,164,92,0); } }
+@keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(var(--gold-rgb), 0); } 100% { box-shadow: 0 0 0 0 rgba(var(--gold-rgb), 0); } }
 .hero__coords { position: absolute; left: var(--pad); bottom: 2rem; z-index: 2; font-size: .68rem; letter-spacing: .25em; color: var(--muted); font-variant-numeric: tabular-nums; }
 .hero__scroll { position: absolute; left: 50%; bottom: 1.5rem; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: .6rem; font-size: .6rem; letter-spacing: .35em; color: var(--muted); }
 .hero__scroll i { width: 1px; height: 46px; background: var(--line); position: relative; overflow: hidden; }
@@ -190,8 +196,8 @@ body::after {
   position: relative; padding: 2.6rem 2.2rem; border: 1px solid var(--line); background: var(--bg); overflow: hidden;
   transition: border-color .4s, transform .2s; transform-style: preserve-3d;
 }
-.service::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(201,164,92,.13), transparent 40%); opacity: 0; transition: opacity .4s; }
-.service:hover { border-color: rgba(201,164,92,.4); }
+.service::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--gold-rgb), .13), transparent 40%); opacity: 0; transition: opacity .4s; }
+.service:hover { border-color: rgba(var(--gold-rgb), .4); }
 .service:hover::before { opacity: 1; }
 .service__icon svg { width: 46px; height: 46px; fill: none; stroke: var(--gold); stroke-width: 1.2; margin-bottom: 2rem; }
 .service__no { position: absolute; top: 2rem; right: 2rem; font-size: .75rem; color: var(--muted); letter-spacing: .2em; }

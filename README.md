@@ -13,7 +13,7 @@ mminfrastructure/
 ├── js/main.js                 ← Η διαδραστικότητα (cursor, πλέγμα, slider, φίλτρα κ.λπ.)
 ├── assets/
 │   ├── images/                ← Οι φωτογραφίες των έργων
-│   └── logo/                  ← Εδώ θα μπει το λογότυπο + favicon
+│   └── logo/                  ← Λογότυπο (vector SVG) + favicon
 ├── .htaccess                  ← Ρυθμίσεις για τον server της Hostinger (HTTPS, ταχύτητα)
 ├── mminfrastructure.code-workspace  ← 👉 ΑΥΤΟ ανοίγεις με το VS Code
 └── README.md                  ← Αυτός ο οδηγός
@@ -132,7 +132,7 @@ mminfrastructure/
 | Αλλάξω τους αριθμούς (χρόνια, έργα…) | `index.html`, `data-count="15"` κ.λπ. |
 | Αλλάξω χρώματα | `css/style.css`, οι μεταβλητές στην αρχή (`--gold`, `--bg`…) |
 | Προσθέσω έργο | Βάλε τη φωτό στο `assets/images/` και αντέγραψε ένα `<figure class="project">` στο `index.html` |
-| Βάλω λογότυπο | Βάλε το `logo.svg` στο `assets/logo/` και ακολούθησε τη σημείωση 👉 στο header του `index.html` |
+| Αλλάξω λογότυπο | Αντικατέστησε τα αρχεία στο `assets/logo/` με τα ίδια ονόματα (δες το `README.txt` εκεί) |
 
 **Φωτογραφίες:** πριν τις ανεβάσεις, μίκρυνέ τες σε πλάτος περίπου 1600px και μέγεθος κάτω από 400KB. Μπορείς να το κάνεις δωρεάν στο https://squoosh.app. Τα ονόματα των αρχείων να είναι **λατινικά, χωρίς κενά**, π.χ. `plateia-kalamaria.jpg`.
 
