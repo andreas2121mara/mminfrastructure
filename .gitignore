@@ -1,3 +1,8 @@
 .DS_Store
 Thumbs.db
 *.zip
+
+# Δεδομένα της Διαχείρισης: ζουν μόνο στον server, δεν ανεβαίνουν ποτέ στο GitHub
+/data/
+/uploads/*
+!/uploads/.htaccess

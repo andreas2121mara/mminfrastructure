@@ -32,6 +32,7 @@
   };
   window.addEventListener("load", finish);
   setTimeout(finish, 3500); // ασφάλεια αν αργήσει κάποια εικόνα
+  if (/[?&](preview|edit)=/.test(location.search)) finish(); // προεπισκόπηση/επεξεργασία: χωρίς αναμονή
 
   /* ---------- 2. Custom cursor ---------- */
   if (!isTouch) {
@@ -156,6 +157,7 @@
     lbCap.textContent = $("h3", p).textContent;
   };
   $$(".project").forEach((p) => p.addEventListener("click", () => {
+    if (document.body.classList.contains("mm-editing")) return;
     show(visible().indexOf(p)); lb.classList.add("open"); lb.setAttribute("aria-hidden", "false");
   }));
   const close = () => { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); };
@@ -233,27 +235,61 @@
 
     // ζωντανές «συντεταγμένες» στο κάτω μέρος του hero
     const coords = $("#coords");
+    const baseLat = parseFloat(coords.dataset.lat) || 40.6401;
+    const baseLng = parseFloat(coords.dataset.lng) || 22.9444;
     cv.parentElement.addEventListener("mousemove", () => {
-      const lat = (40.6401 + (mouse.y / h - 0.5) * -0.01).toFixed(4);
-      const lng = (22.9444 + (mouse.x / w - 0.5) * 0.01).toFixed(4);
-      coords.textContent = `${lat}° N · ${lng}° E`;
+      if (document.body.classList.contains("mm-editing")) return;
+      const lat = baseLat + (mouse.y / h - 0.5) * -0.01;
+      const lng = baseLng + (mouse.x / w - 0.5) * 0.01;
+      coords.textContent = `${Math.abs(lat).toFixed(4)}° ${lat >= 0 ? "N" : "S"} · ${Math.abs(lng).toFixed(4)}° ${lng >= 0 ? "E" : "W"}`;
     });
   }
 
-  /* ---------- 12. Φόρμα επικοινωνίας (Formspree) ---------- */
+  /* ---------- 12. Φόρμα επικοινωνίας (αποθηκεύεται στη Διαχείριση + email) ---------- */
   const form = $("#contactForm"), status = $("#formStatus");
+  const fallbackEmail = (status && status.dataset.email) || "info@mminfrastructure.gr";
+  const say = (msg, err = false) => { status.innerHTML = msg; status.classList.toggle("is-error", err); };
   form.addEventListener("submit", async (e) => {
-    if (form.action.includes("YOUR_FORM_ID")) {
-      e.preventDefault();
-      status.textContent = "⚠ Η φόρμα δεν έχει ρυθμιστεί ακόμα (δες README, βήμα 9).";
-      return;
-    }
     e.preventDefault();
-    status.textContent = "Αποστολή…";
+    if (document.body.classList.contains("mm-editing")) return;
+    const f = form.elements;
+    if (f.name.value.trim().length < 2) { say("Συμπληρώστε το ονοματεπώνυμο.", true); f.name.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim())) { say("Το email δεν φαίνεται σωστό.", true); f.email.focus(); return; }
+    if (f.message.value.trim().length < 5) { say("Γράψτε λίγα λόγια για το έργο.", true); f.message.focus(); return; }
+    const btn = $("button[type=submit]", form);
+    btn.disabled = true;
+    say("Αποστολή…");
+    const data = new FormData(form);
+    if (window.mmPid) data.append("pid", window.mmPid);
     try {
-      const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
-      status.textContent = res.ok ? "✓ Ευχαριστούμε! Θα επικοινωνήσουμε σύντομα." : "Κάτι πήγε στραβά. Δοκιμάστε ξανά.";
-      if (res.ok) form.reset();
-    } catch { status.textContent = "Σφάλμα σύνδεσης. Δοκιμάστε ξανά."; }
+      const res = await fetch(form.getAttribute("action") || "api/contact.php", { method: "POST", body: data, headers: { Accept: "application/json" } });
+      let out = {};
+      try { out = await res.json(); } catch { /* όχι JSON */ }
+      if (res.ok && out.ok) {
+        say(status.dataset.success || "✓ Ευχαριστούμε! Θα επικοινωνήσουμε σύντομα.");
+        form.reset();
+      } else {
+        say(`${out.error || "Κάτι πήγε στραβά."} Μπορείτε επίσης να γράψετε στο <a href="mailto:${fallbackEmail}">${fallbackEmail}</a>.`, true);
+      }
+    } catch {
+      say(`Σφάλμα σύνδεσης. Γράψτε μας στο <a href="mailto:${fallbackEmail}">${fallbackEmail}</a>.`, true);
+    }
+    btn.disabled = false;
+  });
+
+  /* ---------- 13. Διακριτική σύνδεση διαχειριστή ---------- */
+  const key = $("#adminKey");
+  if (key) key.addEventListener("click", () => {
+    if (window.MM_ADMIN) { location.href = "admin/"; return; }
+    if (window.MMDock) { window.MMDock.login(); return; }
+    const css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = "css/admin-dock.css";
+    document.head.append(css);
+    const s = document.createElement("script");
+    s.src = "js/admin-dock.js";
+    s.onload = () => window.MMDock && window.MMDock.login();
+    s.onerror = () => { location.href = "admin/"; };
+    document.body.append(s);
   });
 })();

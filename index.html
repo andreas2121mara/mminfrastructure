@@ -61,7 +61,7 @@
   <main id="top">
 
     <!-- ====== HERO ====== -->
-    <section class="hero">
+    <section class="hero" id="hero">
       <canvas id="blueprint" class="hero__canvas"></canvas>
       <div class="hero__media">
         <img src="assets/images/promenade-seaside.jpg" alt="Ανάπλαση παραλιακού μετώπου με ποδηλατόδρομο" />
@@ -78,11 +78,11 @@
         </h1>
         <p class="hero__lead reveal">Πεζοδρόμια, πλατείες, πάρκα και παραλιακά μέτωπα που αντέχουν στον χρόνο — σχεδιασμένα και εκτελεσμένα με τεχνική αρτιότητα και απόλυτη συνέπεια στα χρονοδιαγράμματα.</p>
         <div class="hero__actions reveal">
-          <a href="#projects" class="btn btn--gold" data-magnetic><span>Δείτε τα έργα μας</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="#contact" class="btn btn--ghost" data-magnetic><span>Ζητήστε προσφορά</span></a>
+          <a href="#projects" class="btn btn--gold" data-magnetic data-track="cta"><span>Δείτε τα έργα μας</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#contact" class="btn btn--ghost" data-magnetic data-track="cta"><span>Ζητήστε προσφορά</span></a>
         </div>
       </div>
-      <div class="hero__coords" id="coords">40.6401° N · 22.9444° E</div>
+      <div class="hero__coords" id="coords" data-lat="40.6401" data-lng="22.9444">40.6401° N · 22.9444° E</div>
       <a href="#about" class="hero__scroll"><span>SCROLL</span><i></i></a>
     </section>
 
@@ -229,7 +229,7 @@
     </section>
 
     <!-- ====== BEFORE / AFTER ====== -->
-    <section class="section compare">
+    <section class="section compare" id="compare">
       <div class="container compare__grid">
         <div>
           <p class="eyebrow reveal">Πριν · Μετά</p>
@@ -297,14 +297,14 @@
             <div class="reveal"><small>Έδρα</small>Θεσσαλονίκη, Ελλάδα</div>
           </div>
         </div>
-        <!-- 👉 Η φόρμα στέλνει email μέσω Formspree (δωρεάν) — δες README βήμα 9 -->
-        <form class="form reveal" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <form class="form reveal" id="contactForm" action="api/contact.php" method="POST" novalidate>
           <div class="field"><input type="text" name="name" id="f-name" required placeholder=" " /><label for="f-name">Ονοματεπώνυμο / Φορέας</label></div>
           <div class="field"><input type="email" name="email" id="f-email" required placeholder=" " /><label for="f-email">Email</label></div>
           <div class="field"><input type="tel" name="phone" id="f-phone" placeholder=" " /><label for="f-phone">Τηλέφωνο</label></div>
           <div class="field"><textarea name="message" id="f-msg" rows="4" required placeholder=" "></textarea><label for="f-msg">Περιγραφή έργου</label></div>
+          <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
           <button type="submit" class="btn btn--gold btn--full" data-magnetic><span>Αποστολή μηνύματος</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          <p class="form__status" id="formStatus"></p>
+          <p class="form__status" id="formStatus" data-email="info@mminfrastructure.gr"></p>
         </form>
       </div>
     </section>
@@ -318,7 +318,10 @@
         <img class="brand__word" src="assets/logo/logo-wordmark.svg" alt="M&amp;M" width="472" height="152" />
       </div>
       <p>© <span id="year"></span> M&amp;M Τεχνικά Έργα. Με επιφύλαξη παντός δικαιώματος.</p>
-      <a href="#top" class="footer__top" data-magnetic>↑ Αρχή</a>
+      <div class="footer__end">
+        <a href="#top" class="footer__top" data-magnetic>↑ Αρχή</a>
+        <button type="button" class="footer__key" id="adminKey" aria-label="Σύνδεση διαχειριστή"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
+      </div>
     </div>
   </footer>
 
@@ -332,5 +335,6 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script src="js/track.js" data-dnt="1" defer></script>
 </body>
 </html>

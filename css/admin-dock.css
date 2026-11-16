@@ -1,0 +1,139 @@
+/* =========================================================
+   M&M — Μπάρα διαχειριστή & επεξεργασία πάνω στη σελίδα
+   (φορτώνεται μόνο όταν είναι συνδεδεμένος ο admin)
+   ========================================================= */
+.mmd-dock, .mmd-pop, .mmd-ov, .mmd-toasts, .mmd-chip, .mmd-imgbtn, .mmd-ribbon {
+  font-family: "Commissioner", system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+.mmd-dock *, .mmd-pop *, .mmd-ov * { box-sizing: border-box; }
+
+/* ---------- Πλωτή μπάρα ---------- */
+.mmd-dock {
+  position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 9998;
+  display: flex; align-items: center; gap: 6px; padding: 6px;
+  background: rgba(18, 18, 20, .86); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  border: 1px solid rgba(200, 179, 120, .3); border-radius: 999px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .05);
+  color: #f2efe8; font-size: 13px;
+  animation: mmdIn .7s cubic-bezier(.22, 1, .36, 1) both;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1), opacity .3s;
+}
+@keyframes mmdIn { from { opacity: 0; transform: translate(-50%, 30px); } }
+.mmd-dock.min > :not(.mmd-dock__logo):not(.mmd-live):not(#mmdMin) { display: none; }
+.mmd-dock.min #mmdMin { transform: rotate(180deg); }
+.mmd-dock.min { left: 18px; transform: none; }
+.mmd-dock__logo { width: 30px; height: 30px; margin: 0 4px 0 2px; }
+.mmd-live { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; background: rgba(12, 163, 12, .1); color: #c3c0b6; text-decoration: none; white-space: nowrap; }
+.mmd-live i { width: 7px; height: 7px; border-radius: 50%; background: #0ca30c; box-shadow: 0 0 0 0 rgba(12, 163, 12, .6); animation: mmdPing 1.8s infinite; }
+.mmd-live b { color: #fff; font-weight: 600; font-variant-numeric: tabular-nums; }
+@keyframes mmdPing { 70% { box-shadow: 0 0 0 8px rgba(12, 163, 12, 0); } 100% { box-shadow: 0 0 0 0 rgba(12, 163, 12, 0); } }
+.mmd-btn {
+  display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px;
+  background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .1); color: #f2efe8;
+  font: 500 13px/1 "Commissioner", system-ui, sans-serif; text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: background .25s, border-color .25s, transform .15s;
+}
+.mmd-btn:hover { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .2); }
+.mmd-btn:active { transform: scale(.97); }
+.mmd-btn.on { background: rgba(200, 179, 120, .2); border-color: #c8b378; color: #efe7a3; }
+.mmd-btn--gold { background: linear-gradient(120deg, #8a6a3f 0%, #b59e68 22%, #efe8a4 48%, #d6ca8c 60%, #a88e5a 82%, #8a683a 100%); background-size: 200% 100%; color: #111; border-color: transparent; font-weight: 600; }
+.mmd-btn--gold:hover { background-position: 100% 0; background-color: transparent; }
+.mmd-btn--block { width: 100%; justify-content: center; padding: 12px; }
+.mmd-btn[disabled] { opacity: .6; pointer-events: none; }
+.mmd-ic { font-size: 14px; line-height: 1; }
+.mmd-badge { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 18px; background: #c8b378; color: #111; font-size: 11px; font-weight: 700; display: inline-grid; place-items: center; }
+.mmd-badge:empty, .mmd-badge[hidden] { display: none; }
+.mmd-icon { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: #9a968d; background: none; border: 0; cursor: pointer; font-size: 15px; transition: background .2s, color .2s; }
+.mmd-icon:hover { background: rgba(255, 255, 255, .08); color: #fff; }
+@media (max-width: 640px) {
+  .mmd-dock { bottom: 10px; max-width: calc(100vw - 16px); }
+  .mmd-lbl, .mmd-live span { display: none; }
+  .mmd-dock__logo { display: none; }
+}
+
+.mmd-ribbon { position: fixed; top: 0; left: 0; right: 0; z-index: 1003; padding: 6px 12px; text-align: center; font-size: 12px; background: #fab219; color: #111; text-decoration: none; font-weight: 500; }
+
+/* ---------- Λειτουργία επεξεργασίας ---------- */
+.mm-editing [data-edit] { cursor: text !important; transition: outline-color .2s, background-color .2s; outline: 1px dashed rgba(200, 179, 120, .35); outline-offset: 4px; border-radius: 2px; }
+.mm-editing [data-edit]:hover { outline: 2px solid #c8b378; background-color: rgba(200, 179, 120, .08); }
+.mm-editing .field label[data-edit] { pointer-events: auto; z-index: 2; }
+.mm-editing .reveal { opacity: 1 !important; transform: none !important; }
+.mm-editing .cursor, .mm-editing .cursor-dot { display: none; }
+.mm-editing .project { cursor: default; }
+.mm-editing img[data-edit] { outline-offset: -4px; }
+.mmd-imgbtn {
+  position: absolute; top: 14px; right: 14px; z-index: 50;
+  padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(200, 179, 120, .6);
+  background: rgba(10, 10, 12, .78); backdrop-filter: blur(8px); color: #efe7a3;
+  font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .4); transition: background .2s, transform .2s;
+}
+.mmd-imgbtn:hover { background: #c8b378; color: #111; transform: translateY(-1px); }
+.mmd-imgbtn--l { right: auto; left: 14px; }
+.hero__media .mmd-imgbtn { top: auto; bottom: 90px; right: 2rem; }
+.mmd-chip {
+  position: absolute; top: 12px; right: 12px; z-index: 40;
+  padding: 6px 12px; border-radius: 999px; font-size: 11.5px; text-decoration: none;
+  background: rgba(10, 10, 12, .75); border: 1px solid rgba(255, 255, 255, .14); color: #c3c0b6; backdrop-filter: blur(8px);
+}
+.mmd-chip:hover { color: #efe7a3; border-color: #c8b378; }
+.hero .mmd-chip { top: 92px; right: auto; left: 12px; }
+
+/* ---------- Αναδυόμενος επεξεργαστής ---------- */
+.mmd-pop {
+  position: fixed; z-index: 9998; padding: 14px; border-radius: 16px;
+  background: #18181b; border: 1px solid rgba(200, 179, 120, .4); color: #f2efe8;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .6); animation: mmdPop .3s cubic-bezier(.22, 1, .36, 1) both;
+}
+@keyframes mmdPop { from { opacity: 0; transform: translateY(6px) scale(.98); } }
+.mmd-pop__head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.mmd-pop__head b { flex: 1; font-weight: 500; font-size: 13px; color: #efe7a3; }
+.mmd-pop textarea, .mmd-pop input, .mmd-card input {
+  width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, .15);
+  background: rgba(0, 0, 0, .35); color: #f2efe8; font: 400 14px/1.6 "Commissioner", system-ui, sans-serif; outline: none; resize: vertical;
+}
+.mmd-pop textarea:focus, .mmd-pop input:focus, .mmd-card input:focus { border-color: #c8b378; box-shadow: 0 0 0 3px rgba(200, 179, 120, .15); }
+.mmd-pop__help { font-size: 11.5px; color: #8f8b82; margin: 6px 0 0; min-height: 1em; }
+.mmd-pop__foot { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+.mmd-pop__foot .mmd-muted { margin-right: auto; }
+.mmd-muted { color: #8f8b82; font-size: 12px; }
+.mmd-x { width: 28px; height: 28px; border-radius: 50%; border: 0; background: none; color: #9a968d; font-size: 20px; line-height: 1; cursor: pointer; }
+.mmd-x:hover { background: rgba(255, 255, 255, .08); color: #fff; }
+
+/* ---------- Παράθυρα (σύνδεση, επιλογή εικόνας) ---------- */
+.mmd-ov { position: fixed; inset: 0; z-index: 9997; background: rgba(5, 5, 6, .7); backdrop-filter: blur(6px); animation: mmdFade .25s both; }
+.mmd-ov--center { display: grid; place-items: center; padding: 16px; }
+@keyframes mmdFade { from { opacity: 0; } }
+.mmd-card { position: relative; width: min(400px, 100%); max-height: calc(100vh - 32px); overflow: auto; padding: 26px; border-radius: 22px; background: #17171a; border: 1px solid rgba(255, 255, 255, .12); box-shadow: 0 40px 120px rgba(0, 0, 0, .6); color: #f2efe8; animation: mmdPop .4s cubic-bezier(.22, 1, .36, 1) both; }
+.mmd-card > .mmd-x { position: absolute; top: 12px; right: 12px; }
+.mmd-login { display: grid; gap: 12px; }
+.mmd-login__logo { width: 52px; height: 52px; margin: 0 auto; }
+.mmd-login h3 { margin: 0 0 4px; text-align: center; font-weight: 400; font-size: 20px; }
+.mmd-login label { display: grid; gap: 5px; font-size: 12px; color: #c3c0b6; }
+.mmd-login .mmd-step1, .mmd-login .mmd-step2 { display: grid; gap: 12px; }
+.mmd-login [hidden] { display: none !important; }
+.mmd-chk { display: flex !important; align-items: center; gap: 8px !important; }
+.mmd-chk input { width: 16px !important; height: 16px; accent-color: #c8b378; }
+.mmd-otp { font-size: 24px !important; text-align: center; letter-spacing: .4em; }
+.mmd-err { color: #ff8b8b; font-size: 13px; text-align: center; min-height: 1.1em; margin: 0; }
+.mmd-link { text-align: center; color: #8f8b82; font-size: 12px; text-decoration: none; }
+.mmd-link:hover { color: #c8b378; }
+.mmd-shake { animation: mmdShake .45s; }
+@keyframes mmdShake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+.mmd-picker { width: min(760px, 100%); }
+.mmd-drop { display: grid; gap: 4px; place-items: center; padding: 18px; margin-bottom: 14px; border: 1.5px dashed rgba(255, 255, 255, .18); border-radius: 14px; cursor: pointer; color: #efe7a3; }
+.mmd-drop:hover { border-color: #c8b378; background: rgba(200, 179, 120, .06); }
+.mmd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; max-height: 50vh; overflow-y: auto; }
+.mmd-thumb { padding: 0; border: 2px solid transparent; border-radius: 10px; overflow: hidden; background: #111; cursor: pointer; aspect-ratio: 4 / 3; }
+.mmd-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mmd-thumb.on { border-color: #c8b378; box-shadow: 0 0 0 2px rgba(200, 179, 120, .4); }
+
+.mmd-toasts { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%); z-index: 9999; display: grid; gap: 8px; justify-items: center; pointer-events: none; }
+.mmd-toast { padding: 10px 16px; border-radius: 999px; background: rgba(24, 24, 27, .96); border: 1px solid rgba(12, 163, 12, .45); color: #f2efe8; font-size: 13px; box-shadow: 0 14px 40px rgba(0, 0, 0, .5); animation: mmdPop .35s both; }
+.mmd-toast--err { border-color: rgba(208, 59, 59, .6); }
+.mmd-toast.out { opacity: 0; transition: opacity .3s; }

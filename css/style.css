@@ -185,7 +185,7 @@ body::after {
 .stat { background: var(--bg); padding: 2.5rem 2rem; transition: background .4s; transform-style: preserve-3d; }
 .stat:hover { background: var(--bg-2); }
 .stat__num { font-size: clamp(2.6rem, 5vw, 4rem); font-weight: 200; line-height: 1; margin-bottom: .8rem; letter-spacing: -.03em; }
-.stat__num span { background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+.stat__num [data-count] { background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
 .stat__label { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 @media (max-width: 860px) { .about__grid { grid-template-columns: 1fr; } }
 
@@ -272,12 +272,24 @@ body::after {
 .field input:focus + label, .field input:not(:placeholder-shown) + label,
 .field textarea:focus + label, .field textarea:not(:placeholder-shown) + label { top: 0; font-size: .7rem; letter-spacing: .15em; color: var(--gold); }
 .form__status { font-size: .85rem; color: var(--gold); min-height: 1.2em; }
+.form__status.is-error { color: #ff9a8a; }
+.form__status a { color: inherit; text-decoration: underline; }
+.form button[disabled] { opacity: .6; pointer-events: none; }
+.hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.contact__social { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; }
+.contact__social a { color: var(--muted); transition: color .3s; }
+.contact__social a:hover { color: var(--gold); }
 @media (max-width: 900px) { .contact__grid { grid-template-columns: 1fr; gap: 3rem; } }
 
 /* ---------- Footer ---------- */
 .footer { border-top: 1px solid var(--line); padding: 2.5rem 0; }
 .footer__inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-size: .8rem; color: var(--muted); }
 .footer__top { color: var(--gold); }
+.footer__end { display: flex; align-items: center; gap: 1.4rem; }
+/* Διακριτικό κουμπί σύνδεσης διαχειριστή */
+.footer__key { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; color: var(--muted); opacity: .16; transition: opacity .4s, color .4s, background .4s; }
+.footer__key svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.footer__key:hover, .footer__key:focus-visible { opacity: 1; color: var(--gold); background: rgba(var(--gold-rgb), .08); outline: none; }
 
 /* ---------- Lightbox ---------- */
 .lightbox { position: fixed; inset: 0; z-index: 9995; background: rgba(5,5,6,.95); backdrop-filter: blur(10px); display: grid; place-items: center; opacity: 0; pointer-events: none; transition: opacity .5s var(--ease); }
