@@ -2,15 +2,21 @@
 <html lang="el">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M&amp;M Τεχνικά Έργα | Αναπλάσεις &amp; Δημόσια Έργα</title>
-  <meta name="description" content="M&M Τεχνικά Έργα — Κατασκευαστική εταιρεία δημοσίων έργων. Αναπλάσεις πεζοδρομίων, πλατειών, παραλιακών μετώπων και οδοποιία με ακρίβεια και συνέπεια." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>M&amp;M Τεχνικά Έργα | Αναπλάσεις &amp; Δημόσια Έργα Θεσσαλονίκη</title>
+  <meta name="description" content="Κατασκευαστική εταιρεία δημοσίων έργων στη Θεσσαλονίκη: αναπλάσεις πεζοδρομίων, πλατειών και παραλιακών μετώπων, οδοποιία και έργα ΑμεΑ. Ζητήστε προσφορά." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://mminfrastructure.gr/" />
   <meta name="theme-color" content="#0b0b0c" />
 
   <!-- Open Graph (πώς φαίνεται όταν μοιράζεται το link) -->
   <meta property="og:title" content="M&M Τεχνικά Έργα" />
   <meta property="og:description" content="Αναπλάσεις & Δημόσια Έργα με ακρίβεια χιλιοστού." />
-  <meta property="og:image" content="assets/images/promenade-seaside.jpg" />
+  <meta property="og:image" content="https://mminfrastructure.gr/assets/images/promenade-seaside.jpg" />
+  <meta property="og:url" content="https://mminfrastructure.gr/" />
+  <meta property="og:locale" content="el_GR" />
+  <meta property="og:site_name" content="M&amp;M Τεχνικά Έργα" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:type" content="website" />
 
   <link rel="icon" href="assets/logo/favicon.png" type="image/png" sizes="64x64" />
@@ -18,17 +24,20 @@
   <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png" />
 
   <!-- Γραμματοσειρές με υποστήριξη ελληνικών -->
+  <link rel="preload" as="image" href="assets/images/promenade-seaside.jpg" imagesrcset="assets/images/sm/promenade-seaside.jpg 600w, assets/images/md/promenade-seaside.jpg 900w, assets/images/promenade-seaside.jpg 1200w" imagesizes="(max-width: 960px) 100vw, 45vw" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@200;300;400;500;600;700;800&family=Noto+Serif+Display:ital,wght@1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@200;300;400;500&family=Noto+Serif+Display:ital,wght@1,300&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
+  <noscript><style>.preloader,.cursor,.cursor-dot{display:none!important}.reveal{opacity:1!important;transform:none!important}.hero__title .line>span{transform:none!important}.hero__media{clip-path:none!important}.hero__media img{transform:none!important}</style></noscript>
 </head>
 <body>
+  <a class="skip" href="#about">Μετάβαση στο περιεχόμενο</a>
 
   <!-- ====== PRELOADER ====== -->
-  <div class="preloader" id="preloader">
-    <img class="preloader__logo" src="assets/logo/logo.svg" alt="M&amp;M Τεχνικά Έργα" width="472" height="512" />
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <img class="preloader__logo" src="assets/logo/logo.svg" alt="" width="472" height="512" />
     <div class="preloader__bar"><span id="preloaderBar"></span></div>
     <div class="preloader__pct" id="preloaderPct">000</div>
   </div>
@@ -47,7 +56,7 @@
       <img class="brand__word" src="assets/logo/logo-wordmark.svg" alt="M&amp;M" width="472" height="152" />
       <span class="brand__text">ΤΕΧΝΙΚΑ ΕΡΓΑ</span>
     </a>
-    <nav class="nav" id="nav">
+    <nav class="nav" id="nav" aria-label="Κύριο μενού">
       <a href="#about" data-magnetic>Η Εταιρεία</a>
       <a href="#services" data-magnetic>Υπηρεσίες</a>
       <a href="#projects" data-magnetic>Έργα</a>
@@ -55,7 +64,7 @@
       <a href="#fleet" data-magnetic>Εξοπλισμός</a>
       <a href="#contact" class="nav__cta" data-magnetic>Επικοινωνία</a>
     </nav>
-    <button class="burger" id="burger" aria-label="Μενού"><span></span><span></span></button>
+    <button class="burger" id="burger" type="button" aria-label="Μενού" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
   </header>
 
   <main id="top">
@@ -64,14 +73,14 @@
     <section class="hero" id="hero">
       <canvas id="blueprint" class="hero__canvas"></canvas>
       <div class="hero__media">
-        <img src="assets/images/promenade-seaside.jpg" alt="Ανάπλαση παραλιακού μετώπου με ποδηλατόδρομο" />
+        <img src="assets/images/promenade-seaside.jpg" alt="Ανάπλαση παραλιακού μετώπου με ποδηλατόδρομο" fetchpriority="high" width="1200" height="1600" srcset="assets/images/sm/promenade-seaside.jpg 600w, assets/images/md/promenade-seaside.jpg 900w, assets/images/promenade-seaside.jpg 1200w" sizes="(max-width: 960px) 100vw, 45vw" />
         <div class="hero__media-tag">
           <span class="dot"></span> ΑΝΑΠΛΑΣΗ ΠΑΡΑΛΙΑΚΟΥ ΜΕΤΩΠΟΥ
         </div>
       </div>
       <div class="hero__content">
-        <p class="eyebrow reveal">Δημόσια Έργα · Αναπλάσεις · Οδοποιία</p>
         <h1 class="hero__title">
+          <span class="eyebrow reveal">Δημόσια Έργα · Αναπλάσεις · Οδοποιία</span>
           <span class="line"><span>Χτίζουμε</span></span>
           <span class="line"><span>το <i>αύριο</i>,</span></span>
           <span class="line"><span class="gold">σήμερα.</span></span>
@@ -99,7 +108,7 @@
       <div class="container about__grid">
         <div class="about__text">
           <p class="eyebrow reveal">01 — Η Εταιρεία</p>
-          <h2 class="h2 reveal">Η πόλη είναι το <i>εργοτάξιό</i> μας.<br/>Η ποιότητα, η υπογραφή μας.</h2>
+          <h2 class="h2 reveal">Τα έργα μας<br/>τα <i>περπατάτε</i> κάθε μέρα.</h2>
           <p class="reveal">Η M&amp;M Τεχνικά Έργα εξειδικεύεται στην εκτέλεση δημοσίων έργων ανάπλασης. Συνεργαζόμαστε με Δήμους και φορείς για να μεταμορφώνουμε δρόμους, πεζοδρόμια και δημόσιους χώρους σε ασφαλή, λειτουργικά και προσβάσιμα περιβάλλοντα.</p>
           <p class="reveal">Με ιδιόκτητο μηχανολογικό εξοπλισμό, έμπειρα συνεργεία και αυστηρό ποιοτικό έλεγχο σε κάθε φάση, παραδίδουμε έργα που κάνουν τη διαφορά στην καθημερινότητα των πολιτών.</p>
           <!-- 👉 Άλλαξε τα κείμενα με τα πραγματικά στοιχεία της εταιρείας -->
@@ -193,35 +202,35 @@
         <!-- 👉 Για να προσθέσεις έργο: αντέγραψε ένα <figure class="project"> και άλλαξε εικόνα/τίτλο/κατηγορία -->
         <div class="projects__grid" id="projectsGrid">
           <figure class="project project--tall reveal" data-cat="coastal">
-            <img src="assets/images/promenade-seaside.jpg" alt="Παραλιακός πεζόδρομος και ποδηλατόδρομος" loading="lazy" />
+            <img src="assets/images/promenade-seaside.jpg" alt="Παραλιακός πεζόδρομος και ποδηλατόδρομος" loading="lazy" decoding="async" width="1200" height="1600" srcset="assets/images/sm/promenade-seaside.jpg 600w, assets/images/md/promenade-seaside.jpg 900w, assets/images/promenade-seaside.jpg 1200w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" />
             <figcaption><span>Παραλιακό Μέτωπο</span><h3>Πεζόδρομος &amp; Ποδηλατόδρομος</h3></figcaption>
           </figure>
           <figure class="project reveal" data-cat="urban">
-            <img src="assets/images/sidewalk-tactile-paving.jpg" alt="Ανακατασκευή πεζοδρομίου με οδηγό τυφλών" loading="lazy" />
+            <img src="assets/images/sidewalk-tactile-paving.jpg" alt="Ανακατασκευή πεζοδρομίου με οδηγό τυφλών" loading="lazy" decoding="async" width="1200" height="1600" srcset="assets/images/sm/sidewalk-tactile-paving.jpg 600w, assets/images/md/sidewalk-tactile-paving.jpg 900w, assets/images/sidewalk-tactile-paving.jpg 1200w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" />
             <figcaption><span>Αστική Ανάπλαση</span><h3>Πεζοδρόμιο με Οδηγό Τυφλών</h3></figcaption>
           </figure>
           <figure class="project reveal" data-cat="coastal">
-            <img src="assets/images/coastal-walkway.jpg" alt="Πλακόστρωση παραλιακού πεζόδρομου" loading="lazy" />
+            <img src="assets/images/coastal-walkway.jpg" alt="Πλακόστρωση παραλιακού πεζόδρομου" loading="lazy" decoding="async" width="1200" height="1600" srcset="assets/images/sm/coastal-walkway.jpg 600w, assets/images/md/coastal-walkway.jpg 900w, assets/images/coastal-walkway.jpg 1200w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" />
             <figcaption><span>Παραλιακό Μέτωπο</span><h3>Πλακόστρωση Παραλιακού Πεζόδρομου</h3></figcaption>
           </figure>
           <figure class="project project--tall reveal" data-cat="urban">
-            <img src="assets/images/urban-paving-cat262b.jpg" alt="Ανάπλαση οδού στο κέντρο της πόλης" loading="lazy" />
+            <img src="assets/images/urban-paving-cat262b.jpg" alt="Ανάπλαση οδού στο κέντρο της πόλης" loading="lazy" decoding="async" width="1200" height="1600" srcset="assets/images/sm/urban-paving-cat262b.jpg 600w, assets/images/md/urban-paving-cat262b.jpg 900w, assets/images/urban-paving-cat262b.jpg 1200w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" />
             <figcaption><span>Αστική Ανάπλαση</span><h3>Ανάπλαση Κεντρικής Οδού</h3></figcaption>
           </figure>
           <figure class="project reveal" data-cat="road">
-            <img src="assets/images/road-milling.jpg" alt="Φρεζάρισμα και ασφαλτόστρωση" loading="lazy" />
+            <img src="assets/images/road-milling.jpg" alt="Φρεζάρισμα και ασφαλτόστρωση" loading="lazy" decoding="async" width="1200" height="1600" srcset="assets/images/sm/road-milling.jpg 600w, assets/images/md/road-milling.jpg 900w, assets/images/road-milling.jpg 1200w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" />
             <figcaption><span>Οδοποιία</span><h3>Φρεζάρισμα &amp; Ασφαλτόστρωση</h3></figcaption>
           </figure>
           <figure class="project project--wide reveal" data-cat="road">
-            <img src="assets/images/finished-street-fleet.jpg" alt="Ολοκληρωμένη ανάπλαση δρόμου" loading="lazy" />
+            <img src="assets/images/finished-street-fleet.jpg" alt="Ολοκληρωμένη ανάπλαση δρόμου" loading="lazy" decoding="async" width="1200" height="1600" srcset="assets/images/sm/finished-street-fleet.jpg 600w, assets/images/md/finished-street-fleet.jpg 900w, assets/images/finished-street-fleet.jpg 1200w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" />
             <figcaption><span>Οδοποιία</span><h3>Νέο Οδόστρωμα &amp; Κράσπεδα</h3></figcaption>
           </figure>
           <figure class="project reveal" data-cat="coastal">
-            <img src="assets/images/beach-gehl-loader.jpg" alt="Χωματουργικές εργασίες σε ακτή" loading="lazy" />
+            <img src="assets/images/beach-gehl-loader.jpg" alt="Χωματουργικές εργασίες σε ακτή" loading="lazy" decoding="async" width="1200" height="1600" srcset="assets/images/sm/beach-gehl-loader.jpg 600w, assets/images/md/beach-gehl-loader.jpg 900w, assets/images/beach-gehl-loader.jpg 1200w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" />
             <figcaption><span>Παραλιακό Μέτωπο</span><h3>Διαμόρφωση Ακτής</h3></figcaption>
           </figure>
           <figure class="project project--wide reveal" data-cat="urban">
-            <img src="assets/images/site-equipment-gehl.jpg" alt="Εργοτάξιο ανάπλασης σε αστική περιοχή" loading="lazy" />
+            <img src="assets/images/site-equipment-gehl.jpg" alt="Εργοτάξιο ανάπλασης σε αστική περιοχή" loading="lazy" decoding="async" width="1200" height="1600" srcset="assets/images/sm/site-equipment-gehl.jpg 600w, assets/images/md/site-equipment-gehl.jpg 900w, assets/images/site-equipment-gehl.jpg 1200w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" />
             <figcaption><span>Αστική Ανάπλαση</span><h3>Ανάπλαση Γειτονιάς</h3></figcaption>
           </figure>
         </div>
@@ -238,8 +247,8 @@
           <!-- 👉 Ιδανικά βάλε 2 φωτογραφίες από το ΙΔΙΟ σημείο (πριν/μετά) -->
         </div>
         <div class="ba reveal" id="ba">
-          <img src="assets/images/promenade-seaside.jpg" alt="Μετά" class="ba__after" />
-          <div class="ba__before" id="baBefore"><img src="assets/images/coastal-walkway.jpg" alt="Κατά την κατασκευή" /></div>
+          <img src="assets/images/promenade-seaside.jpg" alt="Μετά — ΠΑΡΑΔΟΣΗ" class="ba__after" loading="lazy" decoding="async" width="1200" height="1600" />
+          <div class="ba__before" id="baBefore"><img src="assets/images/coastal-walkway.jpg" alt="Πριν — κατά την κατασκευή" loading="lazy" decoding="async" width="1200" height="1600" /></div>
           <div class="ba__handle" id="baHandle"><span>⟷</span></div>
           <span class="ba__label ba__label--l">ΚΑΤΑΣΚΕΥΗ</span>
           <span class="ba__label ba__label--r">ΠΑΡΑΔΟΣΗ</span>
@@ -254,13 +263,13 @@
           <p class="eyebrow reveal">04 — Μέθοδος</p>
           <h2 class="h2 reveal">Μια διαδικασία<br/><i>χωρίς εκπλήξεις</i>.</h2>
         </div>
-        <div class="timeline" id="timeline">
-          <div class="timeline__line"><span id="timelineFill"></span></div>
-          <div class="step reveal"><b>01</b><h3>Μελέτη &amp; Προγραμματισμός</h3><p>Αποτύπωση, ανάλυση μελέτης, χρονοδιάγραμμα και σχέδιο ασφάλειας εργοταξίου.</p></div>
-          <div class="step reveal"><b>02</b><h3>Οργάνωση Εργοταξίου</h3><p>Σήμανση, περίφραξη και ασφαλής διαχείριση κυκλοφορίας πεζών και οχημάτων.</p></div>
-          <div class="step reveal"><b>03</b><h3>Κατασκευή</h3><p>Εκτέλεση με ιδιόκτητο εξοπλισμό και έμπειρα συνεργεία, με ποιοτικό έλεγχο σε κάθε στάδιο.</p></div>
-          <div class="step reveal"><b>04</b><h3>Παράδοση</h3><p>Τελικός έλεγχος, καθαρισμός και έγκαιρη παράδοση ενός άρτιου έργου στον φορέα.</p></div>
-        </div>
+        <ol class="timeline" id="timeline">
+          <li class="timeline__line" aria-hidden="true"><span id="timelineFill"></span></li>
+          <li class="step reveal"><b>01</b><h3>Μελέτη &amp; Προγραμματισμός</h3><p>Αποτύπωση, ανάλυση μελέτης, χρονοδιάγραμμα και σχέδιο ασφάλειας εργοταξίου.</p></li>
+          <li class="step reveal"><b>02</b><h3>Οργάνωση Εργοταξίου</h3><p>Σήμανση, περίφραξη και ασφαλής διαχείριση κυκλοφορίας πεζών και οχημάτων.</p></li>
+          <li class="step reveal"><b>03</b><h3>Κατασκευή</h3><p>Εκτέλεση με ιδιόκτητο εξοπλισμό και έμπειρα συνεργεία, με ποιοτικό έλεγχο σε κάθε στάδιο.</p></li>
+          <li class="step reveal"><b>04</b><h3>Παράδοση</h3><p>Τελικός έλεγχος, καθαρισμός και έγκαιρη παράδοση ενός άρτιου έργου στον φορέα.</p></li>
+        </ol>
       </div>
     </section>
 
@@ -268,7 +277,7 @@
     <section class="section fleet" id="fleet">
       <div class="container fleet__grid">
         <div class="fleet__media reveal" data-parallax>
-          <img src="assets/images/fleet-trucks.jpg" alt="Στόλος οχημάτων M&M" loading="lazy" />
+          <img src="assets/images/fleet-trucks.jpg" alt="Στόλος οχημάτων M&M" loading="lazy" decoding="async" width="1200" height="1600" srcset="assets/images/sm/fleet-trucks.jpg 600w, assets/images/md/fleet-trucks.jpg 900w, assets/images/fleet-trucks.jpg 1200w" sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 420px" />
         </div>
         <div class="fleet__text">
           <p class="eyebrow reveal">05 — Εξοπλισμός</p>
@@ -290,12 +299,12 @@
         <div>
           <p class="eyebrow reveal">06 — Επικοινωνία</p>
           <h2 class="h2 h2--xl reveal">Ας χτίσουμε<br/>κάτι <i class="gold">μόνιμο</i>.</h2>
-          <div class="contact__info">
+          <address class="contact__info">
             <!-- 👉 Βάλε τα πραγματικά στοιχεία -->
             <a href="tel:+302310000000" class="reveal" data-magnetic><small>Τηλέφωνο</small>+30 231 000 0000</a>
             <a href="mailto:info@mminfrastructure.gr" class="reveal" data-magnetic><small>Email</small>info@mminfrastructure.gr</a>
             <div class="reveal"><small>Έδρα</small>Θεσσαλονίκη, Ελλάδα</div>
-          </div>
+          </address>
         </div>
         <form class="form reveal" id="contactForm" action="api/contact.php" method="POST" novalidate>
           <div class="field"><input type="text" name="name" id="f-name" required placeholder=" " /><label for="f-name">Ονοματεπώνυμο / Φορέας</label></div>
@@ -304,7 +313,7 @@
           <div class="field"><textarea name="message" id="f-msg" rows="4" required placeholder=" "></textarea><label for="f-msg">Περιγραφή έργου</label></div>
           <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
           <button type="submit" class="btn btn--gold btn--full" data-magnetic><span>Αποστολή μηνύματος</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-          <p class="form__status" id="formStatus" data-email="info@mminfrastructure.gr"></p>
+          <p class="form__status" id="formStatus" role="status" aria-live="polite" data-email="info@mminfrastructure.gr"></p>
         </form>
       </div>
     </section>
@@ -317,7 +326,7 @@
         <img class="brand__emblem" src="assets/logo/logo-mark.svg" alt="" width="314" height="318" />
         <img class="brand__word" src="assets/logo/logo-wordmark.svg" alt="M&amp;M" width="472" height="152" />
       </div>
-      <p>© <span id="year"></span> M&amp;M Τεχνικά Έργα. Με επιφύλαξη παντός δικαιώματος.</p>
+      <p>© <span id="year">2026</span> M&amp;M Τεχνικά Έργα. Με επιφύλαξη παντός δικαιώματος.</p>
       <div class="footer__end">
         <a href="#top" class="footer__top" data-magnetic>↑ Αρχή</a>
         <button type="button" class="footer__key" id="adminKey" aria-label="Σύνδεση διαχειριστή"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
@@ -326,10 +335,10 @@
   </footer>
 
   <!-- ====== LIGHTBOX ====== -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Προβολή έργου" aria-hidden="true">
     <button class="lightbox__close" id="lbClose" aria-label="Κλείσιμο">✕</button>
     <button class="lightbox__nav lightbox__prev" id="lbPrev" aria-label="Προηγούμενη">‹</button>
-    <img id="lbImg" alt="" />
+    <img id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="1200" height="1600" />
     <button class="lightbox__nav lightbox__next" id="lbNext" aria-label="Επόμενη">›</button>
     <p class="lightbox__cap" id="lbCap"></p>
   </div>

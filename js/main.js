@@ -22,7 +22,10 @@
     pct.textContent = String(p).padStart(3, "0");
   };
   imgs.forEach((im) => (im.complete ? tick() : (im.addEventListener("load", tick), im.addEventListener("error", tick))));
+  let finished = false;
   const finish = () => {
+    if (finished) return;
+    finished = true;
     bar.style.width = "100%"; pct.textContent = "100";
     setTimeout(() => {
       $("#preloader").classList.add("done");
@@ -30,8 +33,17 @@
       document.body.classList.add("loaded");
     }, 350);
   };
+  // Η αναμονή τελειώνει μόλις είναι έτοιμα τα σημαντικά (κεντρική φωτογραφία + γραμματοσειρές),
+  // όχι όλες οι εικόνες της σελίδας: το περιεχόμενο εμφανίζεται πιο γρήγορα.
+  const heroImg = $(".hero__media img");
+  const heroReady = new Promise((r) => {
+    if (!heroImg || heroImg.complete) return r();
+    heroImg.addEventListener("load", r, { once: true });
+    heroImg.addEventListener("error", r, { once: true });
+  });
+  Promise.all([heroReady, document.fonts ? document.fonts.ready : null]).then(() => setTimeout(finish, 150));
   window.addEventListener("load", finish);
-  setTimeout(finish, 3500); // ασφάλεια αν αργήσει κάποια εικόνα
+  setTimeout(finish, 2500); // ασφάλεια αν αργήσει το δίκτυο
   if (/[?&](preview|edit)=/.test(location.search)) finish(); // προεπισκόπηση/επεξεργασία: χωρίς αναμονή
 
   /* ---------- 2. Custom cursor ---------- */
@@ -107,8 +119,18 @@
 
   /* ---------- 6. Mobile menu ---------- */
   const burger = $("#burger"), nav = $("#nav");
-  burger.addEventListener("click", () => { burger.classList.toggle("open"); nav.classList.toggle("open"); });
-  $$("#nav a").forEach((a) => a.addEventListener("click", () => { burger.classList.remove("open"); nav.classList.remove("open"); }));
+  const setMenu = (open) => {
+    burger.classList.toggle("open", open);
+    nav.classList.toggle("open", open);
+    header.classList.toggle("menu-open", open);
+    if (open) header.classList.remove("hide");
+    document.body.classList.toggle("menu-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+  };
+  burger.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
+  $$("#nav a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && nav.classList.contains("open")) { setMenu(false); burger.focus(); } });
+  matchMedia("(min-width: 961px)").addEventListener("change", (m) => { if (m.matches) setMenu(false); });
 
   /* ---------- 7. Reveal on scroll + counters ---------- */
   const io = new IntersectionObserver((entries) => {
@@ -133,8 +155,9 @@
 
   /* ---------- 8. Project filters ---------- */
   $$("#filters button").forEach((b) => b.addEventListener("click", () => {
-    $$("#filters button").forEach((x) => x.classList.remove("active"));
+    $$("#filters button").forEach((x) => { x.classList.remove("active"); x.setAttribute("aria-pressed", "false"); });
     b.classList.add("active");
+    b.setAttribute("aria-pressed", "true");
     const f = b.dataset.filter;
     $$(".project").forEach((p) => {
       const show = f === "all" || p.dataset.cat === f;
@@ -205,9 +228,14 @@
     cv.parentElement.addEventListener("mousemove", (e) => { const r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
     cv.parentElement.addEventListener("mouseleave", () => (mouse.x = mouse.y = -999));
     const GOLD = getComputedStyle(document.documentElement).getPropertyValue("--gold-rgb").trim() || "200,179,120";
-    let t = 0;
-    (function draw() {
-      t += 0.006;
+    let t = 0, onScreen = true, last = 0;
+    if ("IntersectionObserver" in window) new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; }).observe(cv);
+    const minDt = isTouch ? 45 : 0; // στα κινητά λιγότερα καρέ = λιγότερη μπαταρία
+    (function draw(now = 0) {
+      requestAnimationFrame(draw);
+      if (!onScreen || document.hidden || now - last < minDt) return; // σταματά όταν δεν φαίνεται
+      last = now;
+      t += isTouch ? 0.014 : 0.006;
       ctx.clearRect(0, 0, w, h);
       // λεπτές γραμμές πλέγματος
       ctx.strokeStyle = "rgba(255,255,255,0.035)"; ctx.lineWidth = 1;
@@ -230,7 +258,6 @@
         ctx.strokeStyle = `rgba(${GOLD},0.25)`;
         ctx.beginPath(); ctx.moveTo(mouse.x, 0); ctx.lineTo(mouse.x, h); ctx.moveTo(0, mouse.y); ctx.lineTo(w, mouse.y); ctx.stroke();
       }
-      requestAnimationFrame(draw);
     })();
 
     // ζωντανές «συντεταγμένες» στο κάτω μέρος του hero

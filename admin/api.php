@@ -144,6 +144,8 @@ function mm_dispatch(string $a, bool $post): void {
       $used = mm_image_usage(mm_content())[$p] ?? [];
       if ($used && empty($in['force'])) mm_json(['error' => 'Η εικόνα χρησιμοποιείται στη σελίδα.', 'used' => $used], 409);
       @unlink(MM_ROOT . '/' . $p);
+      @unlink(MM_ROOT . '/' . mm_img_variant($p, 'sm'));
+      @unlink(MM_ROOT . '/' . mm_img_variant($p, 'md'));
       mm_audit('media.delete', $p);
       mm_json(['ok' => true]);
 
@@ -605,7 +607,7 @@ function mm_media_list(): array {
     $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($up, FilesystemIterator::SKIP_DOTS));
     foreach ($it as $f) {
       $rel = 'uploads/' . str_replace('\\', '/', substr($f->getPathname(), strlen($up) + 1));
-      if (mm_valid_image_path($rel)) $items[] = mm_media_item($rel, $usage);
+      if (mm_valid_image_path($rel) && !preg_match('#/(sm|md)/#', $rel)) $items[] = mm_media_item($rel, $usage);
     }
   }
   foreach (glob(MM_ROOT . '/assets/images/*') ?: [] as $f) {
@@ -657,6 +659,19 @@ function mm_media_upload(array $f): array {
   imagecopyresampled($dst, $src, 0, 0, 0, 0, $nw, $nh, $w, $h);
   if ($alpha) { $rel = "uploads/$sub/$base.png"; imagepng($dst, MM_ROOT . '/' . $rel, 7); }
   else { imageinterlace($dst, true); $rel = "uploads/$sub/$base.jpg"; imagejpeg($dst, MM_ROOT . '/' . $rel, 84); }
+  // μικρότερες εκδόσεις (600px & 900px) για κάρτες, tablet & κινητά — τη σωστή τη διαλέγει μόνος του ο browser
+  foreach (['sm' => 600, 'md' => 900] as $v => $vw) {
+    if ($nw < $vw * 1.2) continue;
+    $vh = (int)round($nh * $vw / $nw);
+    $small = imagecreatetruecolor($vw, $vh);
+    if ($alpha) { imagealphablending($small, false); imagesavealpha($small, true); }
+    imagecopyresampled($small, $dst, 0, 0, 0, 0, $vw, $vh, $nw, $nh);
+    if (is_dir(MM_ROOT . "/uploads/$sub/$v") || @mkdir(MM_ROOT . "/uploads/$sub/$v", 0755, true)) {
+      $out = MM_ROOT . '/' . mm_img_variant($rel, $v);
+      if ($alpha) imagepng($small, $out, 7); else imagejpeg($small, $out, 80);
+    }
+    imagedestroy($small);
+  }
   imagedestroy($src); imagedestroy($dst);
   return mm_media_item($rel, []);
 }

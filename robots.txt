@@ -1,0 +1,7 @@
+# M&M Τεχνικά Έργα — οδηγίες για τις μηχανές αναζήτησης
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://mminfrastructure.gr/sitemap.xml

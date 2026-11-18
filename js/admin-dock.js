@@ -170,7 +170,8 @@
     if (type === "number") { node.dataset.count = v; node.textContent = v; return; }
     if (type === "title") {
       const lines = String(v).split("\n").map((x) => x.trim()).filter(Boolean);
-      node.innerHTML = lines.map((ln, i) => `<span class="line"><span${lines.length > 1 && i === lines.length - 1 ? ' class="gold"' : ""}>${rich(ln)}</span></span>`).join("");
+      $$(".line", node).forEach((x) => x.remove()); // ο μικρός τίτλος (eyebrow) μένει στη θέση του
+      node.insertAdjacentHTML("beforeend", lines.map((ln, i) => `<span class="line"><span${lines.length > 1 && i === lines.length - 1 ? ' class="gold"' : ""}>${rich(ln)}</span></span>`).join(""));
       return;
     }
     if (type === "rich") { node.innerHTML = rich(v, path === "contact.title" ? "gold" : ""); return; }

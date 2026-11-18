@@ -130,6 +130,47 @@ function rich($s, string $iClass = ''): string {
   return str_replace("\n", '<br/>', $h);
 }
 
+/** Μικρότερες εκδόσεις μιας εικόνας: «φάκελος/sm/όνομα» (600px) και «φάκελος/md/όνομα» (900px). */
+function mm_img_variant(string $path, string $v): string {
+  return dirname($path) . '/' . $v . '/' . basename($path);
+}
+function mm_img_small(string $path): string {
+  return mm_img_variant($path, 'sm');
+}
+
+/** Λίστα «αρχείο πλάτος» για srcset (μικρό → μεγάλο) ή [] αν δεν υπάρχουν μικρότερες εκδόσεις. */
+function mm_img_srcset(string $path): array {
+  static $cache = [];
+  if (isset($cache[$path])) return $cache[$path];
+  $abs = MM_ROOT . '/' . $path;
+  $info = (mm_valid_image_path($path) && is_file($abs)) ? @getimagesize($abs) : false;
+  if (!$info) return $cache[$path] = ['w' => 0, 'h' => 0, 'set' => []];
+  $set = [];
+  foreach (['sm', 'md'] as $v) {
+    $p = mm_img_variant($path, $v);
+    $vi = is_file(MM_ROOT . '/' . $p) ? @getimagesize(MM_ROOT . '/' . $p) : false;
+    if ($vi && (int)$vi[0] < (int)$info[0]) $set[] = [$p, (int)$vi[0]];
+  }
+  if ($set) $set[] = [$path, (int)$info[0]];
+  return $cache[$path] = ['w' => (int)$info[0], 'h' => (int)$info[1], 'set' => $set];
+}
+
+/**
+ * width/height + srcset για μια εικόνα: η σελίδα δεν «πηδάει» όσο φορτώνει
+ * και ο browser κατεβάζει το μέγεθος που χρειάζεται (μικρό σε κάρτες/κινητά).
+ */
+function mm_img(string $path, string $sizes = '100vw'): string {
+  $i = mm_img_srcset($path);
+  $out = $i['w'] ? ' width="' . $i['w'] . '" height="' . $i['h'] . '"' : '';
+  if ($i['set']) $out .= ' srcset="' . e(implode(', ', array_map(fn($s) => $s[0] . ' ' . $s[1] . 'w', $i['set']))) . '" sizes="' . e($sizes) . '"';
+  return $out;
+}
+
+/** Καθαρό κείμενο (χωρίς *έμφαση* και αλλαγές γραμμής) για meta/alt/structured data. */
+function mm_plain(string $s): string {
+  return trim(preg_replace('/\s+/u', ' ', str_replace('*', '', $s)) ?? $s);
+}
+
 function mm_lines(string $s): array {
   $l = array_values(array_filter(array_map('trim', explode("\n", $s)), fn($x) => $x !== ''));
   return $l ?: [''];

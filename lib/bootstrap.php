@@ -14,6 +14,7 @@ if (PHP_VERSION_ID < 80000) {
 define('MM_ROOT', dirname(__DIR__));
 mb_internal_encoding('UTF-8');
 date_default_timezone_set('Europe/Athens');
+if (!headers_sent()) header_remove('X-Powered-By'); // δεν δείχνουμε δημόσια την έκδοση της PHP
 
 /* ---------- Φάκελος δεδομένων ----------
    Προτιμάμε φάκελο ΕΞΩ από το public_html (δεν είναι προσβάσιμος από το web
